@@ -3,25 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import Server from './server'
 import icon from '../../resources/icon.png?asset'
-
-// const {
-//   mouse,
-//     screen
-
-// } = require("@nut-tree-fork/nut-js");
-
-// console.log(mouse,'122222222222222222222');
-// console.log(screen,'122222222222222222222');
-
-// 监听鼠标移动事件
-// mouse.on('mousemove', async (event) => {
-//   const { x, y } = event;
-//   console.log(`[Mouse Move] X: ${x}, Y: ${y}`);
-
-//   // 发送到主进程（可选）
-//   // const { ipcRenderer } = require('electron');
-//   // ipcRenderer.send('mouse-move', { x, y });
-// });
+import { createChildWindow } from './child'
 
 function createWindow(): void {
   // Create the browser window.
@@ -49,7 +31,6 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
-
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -57,7 +38,6 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
-  mainWindow.webContents.openDevTools()
   mainWindow.setAlwaysOnTop(true)
 
   // clientxx.init(event);
@@ -66,6 +46,7 @@ function createWindow(): void {
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    mainWindow.webContents.openDevTools()
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
@@ -87,15 +68,22 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+  //关闭
+  ipcMain.on('exit', () => {
+    app.exit()
+  })
 
+  //开起子窗口
+  ipcMain.on('create-child-window', (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    createChildWindow(win as BrowserWindow)
+  })
 
   //创建本地服务
   Server()
 
   //
   createWindow()
-
-
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -118,12 +106,12 @@ app.on('window-all-closed', () => {
 })
 
 ipcMain.handle('get-window-bounds', (event) => {
-  const win = BrowserWindow.fromWebContents(event.sender);
+  const win = BrowserWindow.fromWebContents(event.sender)
   if (win) {
-    return win.getBounds(); // 获取窗口的位置信息
+    return win.getBounds() // 获取窗口的位置信息
   }
-  return null;
-});
+  return null
+})
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

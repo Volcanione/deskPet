@@ -12,7 +12,14 @@ export default defineConfig(({ mode }) => {
       plugins: [externalizeDepsPlugin()]
     },
     preload: {
-      plugins: [externalizeDepsPlugin()]
+      plugins: [externalizeDepsPlugin()],
+      build: {
+        rollupOptions: {
+          input: {
+            index: resolve(__dirname, 'src/preload/index.js')
+          }
+        }
+      }
     },
     renderer: {
       server: {
@@ -55,6 +62,14 @@ export default defineConfig(({ mode }) => {
       },
       optimizeDeps: {
         include: ['dayjs/locale/zh-cn']
+      },
+      build: {
+        rollupOptions: {
+          input: {
+            index: resolve(__dirname, 'src/renderer/index.html'),
+            child: resolve(__dirname, 'src/renderer/child.html'),
+          }
+        }
       }
     }
   }

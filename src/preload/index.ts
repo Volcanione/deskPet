@@ -6,6 +6,7 @@ import { getMousePosition,initGlobalKeyboardListener } from './nut'
 // Custom APIs for renderer
 const api = {
   exit: () => electronAPI.ipcRenderer.send('exit'), //退出程序
+  openSetting: () => electronAPI.ipcRenderer.send('create-child-window'), //开启子窗口
   getMousePosition,
   initGlobalKeyboardListener
 }

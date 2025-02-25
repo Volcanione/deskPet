@@ -1,5 +1,6 @@
 <template>
   <live2DCom class="Live2D" :options="options" @init="init" v-if="show" />
+  <span @click="openSetting" class="setting">setting</span>
 </template>
 
 <script lang="ts">
@@ -19,7 +20,7 @@ const options = reactive({
   ViewScale: 1,
   Size: 200,
   // MandatoryMotions: true,//强制触发动画
-  MouseFollow: true//鼠标视线跟踪
+  MouseFollow: false//鼠标视线跟踪
 })
 
 const init = async (live2d) => {
@@ -56,10 +57,17 @@ const getMouseConfig = (live2d: any) => {
 
 }
 
-const initKeybord = (live2d?:any) => {
+const initKeybord = (live2d?: any) => {
   window.api.initGlobalKeyboardListener((e) => {
     console.log(e);
   })
+}
+
+//
+
+const openSetting = () => {
+  console.log(1121211221);
+  window.api.openSetting()
 }
 
 
@@ -71,5 +79,12 @@ const initKeybord = (live2d?:any) => {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.setting {
+  position: absolute;
+z-index: 111;
+cursor: pointer;
+  -webkit-app-region: no-drag;
 }
 </style>
