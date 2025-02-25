@@ -14,7 +14,7 @@ import live2DCom from '../live2DCom/index.vue'
 import { nextTick, reactive, ref, } from 'vue';
 const options = reactive({
   // ResourcesPath: fred,
-  ResourcesPath: 'http://localhost:3000/live2dResources/',
+  ResourcesPath: `${import.meta.env.VITE_BASE_URL}/live2dResources/`,
   ModelDir: ['fred', 'azukiA', 'xiaji'],
   // BgImgUrl:'http://127.0.0.1:80/src/live2dResources/back_class_normal.png',
   ViewScale: 1,

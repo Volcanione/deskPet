@@ -27,6 +27,8 @@
     "@rollup/plugin-dsv": "3.0.5",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "animate.css": "^4.1.1",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
     "electron-updater": "^6.3.9",
     "express": "^4.21.2",
     "live2d-vuenext": "^1.1.10",

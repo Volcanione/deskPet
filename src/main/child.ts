@@ -22,6 +22,7 @@ export function createChildWindow(mainWindow: BrowserWindow) {
     childWindow.webContents.openDevTools()
   } else {
     childWindow.loadFile(join(__dirname, '../renderer/child.html'))
+    childWindow.webContents.openDevTools()
   }
 
   // 子窗口准备好后显示
