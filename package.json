@@ -30,6 +30,7 @@
     "electron-updater": "^6.3.9",
     "express": "^4.21.2",
     "live2d-vuenext": "^1.1.10",
+    "node-global-key-listener": "^0.3.0",
     "vite-svg-loader": "^4.0.0"
   },
   "devDependencies": {

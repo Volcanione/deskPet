@@ -32,7 +32,9 @@ const init = async (live2d) => {
 
   // console.log(live2d.live2Dexample._view);
   // live2d.live2Dexample._view.onTouchesMoved(145, -132)
-  getMouseConfig(live2d)
+
+  // getMouseConfig(live2d)//鼠标监听
+  // initKeybord(live2d)//键盘监听
 }
 
 const show = ref(true)
@@ -49,6 +51,15 @@ const getMouseConfig = (live2d: any) => {
       console.log(error);
     }
   }, 100)
+
+  //
+
+}
+
+const initKeybord = (live2d?:any) => {
+  window.api.initGlobalKeyboardListener((e) => {
+    console.log(e);
+  })
 }
 
 

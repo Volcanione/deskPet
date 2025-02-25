@@ -1,12 +1,13 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
-import { getMousePosition } from './nut'
+import { getMousePosition,initGlobalKeyboardListener } from './nut'
 
 // Custom APIs for renderer
 const api = {
   exit: () => electronAPI.ipcRenderer.send('exit'), //退出程序
   getMousePosition,
+  initGlobalKeyboardListener
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
