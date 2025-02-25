@@ -1,9 +1,12 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
+import { getMousePosition } from './nut'
+
 // Custom APIs for renderer
 const api = {
-  exit: () => electronAPI.ipcRenderer.send('exit') //退出程序
+  exit: () => electronAPI.ipcRenderer.send('exit'), //退出程序
+  getMousePosition,
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
@@ -22,3 +25,5 @@ if (process.contextIsolated) {
   // @ts-ignore (define in dts)
   window.api = api
 }
+
+//启用鼠标监听

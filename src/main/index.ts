@@ -3,7 +3,6 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import Server from './server'
 import icon from '../../resources/icon.png?asset'
-import { initMouseListener } from './nut'
 
 // const {
 //   mouse,
@@ -27,8 +26,8 @@ import { initMouseListener } from './nut'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 400,
+    width: 200,
+    height: 200,
     show: false,
     resizable: false,
     autoHideMenuBar: true,
@@ -50,6 +49,7 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -87,13 +87,15 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+
   //创建本地服务
   Server()
 
-  //启用鼠标监听
-  initMouseListener()
   //
   createWindow()
+
+
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -114,6 +116,14 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+ipcMain.handle('get-window-bounds', (event) => {
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (win) {
+    return win.getBounds(); // 获取窗口的位置信息
+  }
+  return null;
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

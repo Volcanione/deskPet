@@ -10,10 +10,10 @@ export default {
 
 <script setup lang="ts">
 import live2DCom from '../live2DCom/index.vue'
-import { nextTick, reactive, ref } from 'vue';
+import { nextTick, reactive, ref, } from 'vue';
 const options = reactive({
   // ResourcesPath: fred,
- ResourcesPath:'http://localhost:3000/live2dResources/',
+  ResourcesPath: 'http://localhost:3000/live2dResources/',
   ModelDir: ['fred', 'azukiA', 'xiaji'],
   // BgImgUrl:'http://127.0.0.1:80/src/live2dResources/back_class_normal.png',
   ViewScale: 1,
@@ -30,11 +30,28 @@ const init = async (live2d) => {
   //     live2d.live2DManager.nextScene()
   // },3000)
 
-  console.log(live2d.live2Dexample._view);
-live2d.live2Dexample._view.onTouchesMoved(145, -132)
+  // console.log(live2d.live2Dexample._view);
+  // live2d.live2Dexample._view.onTouchesMoved(145, -132)
+  getMouseConfig(live2d)
 }
 
 const show = ref(true)
+
+
+const getMouseConfig = (live2d: any) => {
+
+  setInterval(async () => {
+    try {
+      const { bounds, currentPosition } = await window.api.getMousePosition()
+
+      live2d.live2Dexample._view.onTouchesMoved(-(bounds.x - currentPosition.x), -(bounds.y - currentPosition.y))
+    } catch (error) {
+      console.log(error);
+    }
+  }, 100)
+}
+
+
 
 
 </script>
