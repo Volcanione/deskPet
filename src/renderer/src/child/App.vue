@@ -1,9 +1,9 @@
 <template>
-  <div>setting</div>
+  <Layout />
 </template>
 
 <script lang="ts" setup>
-
+import Layout from '@renderer/child/layout/index.vue'
 import { SettingConfig } from '@renderer/api/index'
 
 const init = async () => {

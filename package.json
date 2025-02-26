@@ -33,7 +33,8 @@
     "express": "^4.21.2",
     "live2d-vuenext": "^1.1.10",
     "node-global-key-listener": "^0.3.0",
-    "vite-svg-loader": "^4.0.0"
+    "vite-svg-loader": "^4.0.0",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "3.0.0",

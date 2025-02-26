@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { reactive, ref,onUnmounted, getCurrentInstance, onBeforeMount } from 'vue'
+import { reactive, ref, onUnmounted, getCurrentInstance, onBeforeMount, nextTick,watch } from 'vue'
 import { live2DManger } from './src/main'
 
 const props = defineProps(
@@ -59,6 +59,11 @@ const init = async (el) => {
   intersectionObserver.observe(el);
   Object.assign(live2dData, LIVE2D)
   emit('init', live2dData)
+  watch(() => props.options, async (data) => {
+    await nextTick()
+    Resize(true)
+
+  }, { deep: true, })
 }
 
 
@@ -93,5 +98,4 @@ onBeforeMount(() => {
 
 </script>
 
-<style>
-</style>
+<style></style>

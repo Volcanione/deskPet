@@ -5,9 +5,9 @@ type Pos = {
 declare interface Window {
   api: {
     exit: () => void
-    openSetting: () => void
+    openSetting: (callback?:()=>void) => void
     getMousePosition: () => {bounds: Pos, currentPosition: Pos}
-    initGlobalKeyboardListener:(callback?:(e:any)=>void) => void
+    initGlobalKeyboardListener:( ) => void
   }
 
 }

@@ -126,7 +126,7 @@ export class LAppLive2DManager {
       }
 
 
-      
+
       //  this._models
       //       .at(i)
       //       .startRandomMotion(
@@ -174,8 +174,8 @@ export class LAppLive2DManager {
    * 次のシーンに切りかえる
    * サンプルアプリケーションではモデルセットの切り替えを行う。
    */
-  public nextScene(): void {
-    const no: number = (this._sceneIndex + 1) % LAppDefine.ModelDirSize;
+  public nextScene(index: number): void {
+    const no: number = (index|| this._sceneIndex + 1) % LAppDefine.ModelDirSize;
     this.changeScene(no);
   }
 

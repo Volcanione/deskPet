@@ -1,6 +1,8 @@
 <template>
-  <live2DCom class="Live2D" :options="options" @init="init" v-if="show" />
-  <span @click="openSetting" class="setting">setting</span>
+  <div class="live2DContent">
+    <Tools class="tools" :class="['animate__animated', `${toolsShow ? 'animate__bounceIn' : 'animate__bounceOut'}`]" />
+    <live2DCom class="Live2D" :options="options" @init="init" v-if="show" @click="toolsShow = !toolsShow" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,14 +13,13 @@ export default {
 
 <script setup lang="ts">
 import live2DCom from '../live2DCom/index.vue'
-import { nextTick, reactive, ref, } from 'vue';
+import Tools from '../tools/index.vue'
+import { nextTick, reactive, ref, watch } from 'vue';
 const options = reactive({
-  // ResourcesPath: fred,
   ResourcesPath: `${import.meta.env.VITE_BASE_URL}/live2dResources/`,
   ModelDir: ['fred', 'azukiA', 'xiaji'],
-  // BgImgUrl:'http://127.0.0.1:80/src/live2dResources/back_class_normal.png',
   ViewScale: 1,
-  Size: 200,
+  CanvasSize: { width: 150, height: 200 },
   // MandatoryMotions: true,//强制触发动画
   MouseFollow: false//鼠标视线跟踪
 })
@@ -28,7 +29,7 @@ const init = async (live2d) => {
 
   await nextTick()
   // setTimeout((  ) => {
-  //     live2d.live2DManager.nextScene()
+  //     live2d.live2DManager.nextScene(2)
   // },3000)
 
   // console.log(live2d.live2Dexample._view);
@@ -36,6 +37,7 @@ const init = async (live2d) => {
 
   // getMouseConfig(live2d)//鼠标监听
   // initKeybord(live2d)//键盘监听
+
 }
 
 const show = ref(true)
@@ -65,26 +67,26 @@ const initKeybord = (live2d?: any) => {
 
 //
 
-const openSetting = () => {
-  console.log(1121211221);
-  window.api.openSetting()
-}
 
 
+
+
+//tools
+const toolsShow = ref(false)
 
 
 </script>
 <style lang="less" scoped>
-.Live2D {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.live2DContent {
+  position: relative;
+
+  .tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9;
+  }
 }
 
-.setting {
-  position: absolute;
-z-index: 111;
-cursor: pointer;
-  -webkit-app-region: no-drag;
-}
+.Live2D {}
 </style>

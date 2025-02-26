@@ -1,7 +1,7 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
-import { getMousePosition,initGlobalKeyboardListener } from './nut'
+import { getMousePosition, initGlobalKeyboardListener } from './nut'
 
 // Custom APIs for renderer
 const api = {

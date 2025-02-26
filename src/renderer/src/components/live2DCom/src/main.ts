@@ -39,8 +39,8 @@ export function live2DManger(options) {
    * Process when changing screen size.
    */
   //尺寸变化
-  const Resize = () => {
-    if (LAppDefine.CanvasSize === 'auto') {
+  const Resize = (state:false) => {
+    if (LAppDefine.CanvasSize === 'auto' || state) {
       LAppDelegate.getInstance().onResize();
     }
   };

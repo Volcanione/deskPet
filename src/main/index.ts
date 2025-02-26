@@ -8,7 +8,7 @@ import { createChildWindow } from './child'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 200,
+    width: 150,
     height: 200,
     show: false,
     resizable: false,
@@ -74,9 +74,10 @@ app.whenReady().then(() => {
   })
 
   //开起子窗口
-  ipcMain.on('create-child-window', (event) => {
+  ipcMain.on('create-child-window', async (event, callback) => {
     const win = BrowserWindow.fromWebContents(event.sender)
-    createChildWindow(win as BrowserWindow)
+    await createChildWindow(win as BrowserWindow)
+    callback instanceof Function && callback()
   })
 
   //创建本地服务
