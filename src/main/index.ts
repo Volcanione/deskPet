@@ -74,10 +74,10 @@ app.whenReady().then(() => {
   })
 
   //开起子窗口
-  ipcMain.on('create-child-window', async (event, callback) => {
+  ipcMain.on('create-child-window', async (event) => {
     const win = BrowserWindow.fromWebContents(event.sender)
     await createChildWindow(win as BrowserWindow)
-    callback instanceof Function && callback()
+    event.sender.send('create-child-window-success','success');
   })
 
   //创建本地服务

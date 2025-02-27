@@ -1,6 +1,6 @@
 <template>
   <div class="tools">
-    <span class="item" v-for="tool in toolsList" :key="tool.title"  @click="tool.click && tool.click()">
+    <span class="item" v-for="tool in toolsList" :key="tool.title" @click="tool.click && tool.click()">
       <i class="iconfont" v-html="tool.icon"></i>
     </span>
   </div>
@@ -11,10 +11,23 @@ import { reactive, ref } from 'vue'
 
 
 //打开设置
+const openSettingLoading = ref(false)
 const openSetting = async () => {
   try {
+    if (openSettingLoading.value) return
+    openSettingLoading.value = true
     await window.api.openSetting()
-console.log(122);
+  } catch (error) {
+    //
+  }
+  openSettingLoading.value = false
+}
+
+
+//退出
+const exit = async () => {
+  try {
+    await window.api.exit()
   } catch (error) {
     //
   }
@@ -29,11 +42,16 @@ const toolsList = reactive([
     title: '设置',
     click: openSetting
   },
+ {
+    icon: '&#xe63a;',
+    title: '退出',
+    click: exit
+  },
   {
     icon: '&#xe616;',
     title: '拖拽',
     click: null
-  }
+  },
 ])
 
 
