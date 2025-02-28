@@ -77,7 +77,7 @@ app.whenReady().then(() => {
   ipcMain.on('create-child-window', async (event) => {
     const win = BrowserWindow.fromWebContents(event.sender)
     await createChildWindow(win as BrowserWindow)
-    event.sender.send('create-child-window-success','success');
+    event.sender.send('create-child-window-success', 'success')
   })
 
   //创建本地服务
@@ -101,9 +101,11 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  console.log(111111);
+  // if (process.platform !== 'darwin') {
+  //   app.exit()
+  // }
+  app.exit()
 })
 
 ipcMain.handle('get-window-bounds', (event) => {
