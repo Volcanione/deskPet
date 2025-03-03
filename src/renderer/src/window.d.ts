@@ -8,6 +8,8 @@ declare interface Window {
     openSetting: (callback?:()=>void) => void
     getMousePosition: () => {bounds: Pos, currentPosition: Pos}
     initGlobalKeyboardListener:( ) => void
+    selectDirectory:( ) => Promise<string>
+    openDirectory:( ) => Promise<string>
   }
 
 }

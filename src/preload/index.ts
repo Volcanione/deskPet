@@ -1,6 +1,6 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import {openSetting,exit}  from './api'
+import {openSetting,exit,selectDirectory,openDirectory}  from './api'
 import { getMousePosition, initGlobalKeyboardListener } from './nut'
 
 // Custom APIs for renderer
@@ -8,7 +8,9 @@ const api = {
   exit, //退出程序
   openSetting, //开启子窗口
   getMousePosition,//获取鼠标位置
-  initGlobalKeyboardListener//全局监听键盘
+  initGlobalKeyboardListener,//全局监听键盘
+  selectDirectory,//获取文件目录
+  openDirectory,//打开文件目录
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

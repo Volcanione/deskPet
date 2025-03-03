@@ -3,12 +3,17 @@ import { createRouter, RouteRecordRaw, createWebHashHistory } from 'vue-router'
 export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/setting'
+    redirect: '/common'
   },
   {
-    path: '/setting',
-    name: 'Setting',
-    component: () => import('@renderer/child/views/setting/index.vue')
+    path: '/common',
+    name: 'common',
+    component: () => import('@renderer/child/views/common/index.vue')
+  },
+  {
+    path: '/advanced',
+    name: 'advanced',
+    component: () => import('@renderer/child/views/advanced/index.vue')
   }
 ]
 

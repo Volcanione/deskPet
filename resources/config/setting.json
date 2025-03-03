@@ -1,3 +1,24 @@
 {
-"test":"11"
+	"common": {
+		"title": "通用设置",
+		"key": "common",
+		"children": [
+			{
+				"title": "资源目录",
+				"key": "resourceDir",
+				"value": "D:\\pet\\deskPet\\resources\\live2dResources"
+			}
+		]
+	},
+	"advanced": {
+		"title": "高级设置",
+		"key": "advanced",
+		"children": [
+			{
+				"title": "帧率",
+				"key": "frameRate",
+				"value": ""
+			}
+		]
+	}
 }

@@ -1,5 +1,6 @@
-import { app, shell, BrowserWindow, ipcMain, contextBridge, ipcRenderer } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, contextBridge, ipcRenderer, dialog } from 'electron'
 import { join } from 'path'
+import { promises as fs } from 'fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import Server from './server'
 import icon from '../../resources/icon.png?asset'
@@ -101,7 +102,7 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  console.log(111111);
+  console.log(111111)
   // if (process.platform !== 'darwin') {
   //   app.exit()
   // }
@@ -114,6 +115,33 @@ ipcMain.handle('get-window-bounds', (event) => {
     return win.getBounds() // 获取窗口的位置信息
   }
   return null
+})
+
+// 获取选中文件
+ipcMain.handle('select-dir', async () => {
+  const res = await fs.readFile(join(__dirname, '../../resources/config/setting.json'), 'utf8')
+
+  const data = JSON.parse(res)
+
+  //处理资源目录默认值
+
+  const resourcePathData = data.common.children?.find((item) => item.key === 'resourceDir')
+
+  const result = await dialog.showOpenDialog({
+    properties: ['openDirectory'],
+    defaultPath: resourcePathData.value || join(__dirname, '../../resources/live2dResources')
+  })
+  return result.filePaths[0]
+})
+
+//打开指定目录
+ipcMain.handle('open-dir', async ( ) => {
+  const targetDir =  join(__dirname, '../../resources/live2dResources')
+  shell.openPath(targetDir).then((error) => {
+    if (error) {
+      console.error('打开失败:', error)
+    }
+  })
 })
 
 // In this file you can include the rest of your app's specific main process
